@@ -1,0 +1,82 @@
+rules_version = '2';
+
+// =============================================================================
+// NutriLens AI - Firestore Security Rules
+//
+// ARCHITECTURE:
+// Every read/write to Firestore is executed by the NutriLens backend
+// (FastAPI + firebase-admin, the Admin SDK). The Admin SDK authenticates with
+// a service account and BYPASSES Firestore Security Rules entirely.
+//
+// The frontend NEVER uses the Firebase Client SDK: it talks only to the
+// backend REST API with a Firebase ID token (Authorization: Bearer header),
+// and every user-scoped operation is authorized by the backend.
+//
+// CONSEQUENCE:
+// These rules exist solely to block DIRECT client-SDK access to the
+// database. Because no client-SDK feature requires database access, the
+// least-privilege posture is: deny everything for clients. Any future client
+// feature that needs Firestore must be built through the backend API first;
+// only then should a narrow rule be added here alongside it.
+//
+// The per-collection entries below are explicit denials that document the
+// data model for auditors; they are redundant with the catch-all deny, which
+// also covers any future collection.
+// =============================================================================
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ---- user identity & profile (created by backend at signup) ----
+    match /users/{document} {
+      allow read, write: if false;   // contains accountType, emailVerified, OTP hashes
+    }
+
+    // ---- personal nutrition data (all written by backend services) ----
+    match /nutrition_plans/{document} {
+      allow read, write: if false;
+    }
+    match /water_logs/{document} {
+      allow read, write: if false;
+    }
+    match /weight_logs/{document} {
+      allow read, write: if false;
+    }
+    match /meal_history/{document} {
+      allow read, write: if false;
+    }
+    match /reports/{document} {
+      allow read, write: if false;
+    }
+    match /ai_history/{document} {
+      allow read, write: if false;
+    }
+    match /doctor_notes/{document} {
+      allow read, write: if false;   // patient health data; backend-only
+    }
+
+    // ---- personal app data (all written by backend services) ----
+    match /shopping_lists/{document} {
+      allow read, write: if false;
+    }
+    match /favorites/{document} {
+      allow read, write: if false;
+    }
+
+    // ---- challenge catalog + user challenge state ----
+    // The challenge catalog is read through GET /challenges/ on the backend,
+    // so clients do not need direct read access.
+    match /challenges/{document} {
+      allow read, write: if false;
+    }
+    match /user_challenges/{document} {
+      allow read, write: if false;
+    }
+
+    // ---- catch-all: deny client access to everything, including any
+    //      collection not listed above or added in the future ----
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

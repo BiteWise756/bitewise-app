@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PJ7MP3LK0C"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-PJ7MP3LK0C');
+  </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BiteWise — Reminders</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --dark:#10241E;
+  --green:#53775A;
+  --sage:#A4B89A;
+  --tan:#E7DEC9;
+  --cream:#F7F4EE;
+  --white:#ffffff;
+  --surface: rgba(247,244,238,0.07);
+  --surface-strong: rgba(247,244,238,0.12);
+  --muted: #9db2a8;
+  --bg: var(--dark);
+  --text: var(--cream);
+  --ink-rgb: 247,244,238;
+  --primary-bg: var(--cream);
+  --primary-text: var(--dark);
+  --input-bg: var(--surface);
+  --card-shadow: rgba(0,0,0,0.25);
+  --tile-shadow: rgba(0,0,0,0.2);
+  --accent-text: var(--sage);
+  --err: #e58a7a;
+  --radius:26px;
+  --radius-sm:14px;
+  --radius-xs:10px;
+  --shadow: 0 12px 30px rgba(0,0,0,0.35);
+  font-family:'Manrope',sans-serif;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+}
+.display{font-family:'Plus Jakarta Sans',sans-serif;}
+h1.display{font-size:clamp(28px,5vw,44px); margin:6px 0 10px; font-weight:800; letter-spacing:-.02em; line-height:1.15;}
+h2.display{font-size:clamp(20px,3vw,28px); margin:0 0 6px; font-weight:800; letter-spacing:-.01em;}
+h3.display{font-size:17px; margin:0 0 4px; font-weight:800;}
+p.sub{font-size:clamp(13px,1.1vw,15px); color:var(--muted); margin:0; line-height:1.6;}
+.section-title{text-align:center; margin-bottom:40px;}
+.section-title h2{color:var(--text);}
+.section-title p{max-width:540px; margin:0 auto;}
+
+/* NAVBAR */
+.navbar{
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  background:rgba(16,36,30,0.92); backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(var(--ink-rgb),0.06);
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px 32px; height:64px;
+}
+.navbar .brand{display:flex; align-items:center; gap:10px; text-decoration:none;}
+.navbar .brand svg{width:32px; height:32px;}
+.navbar .brand .n{font-family:'Plus Jakarta Sans'; font-size:20px; font-weight:800; color:var(--text); letter-spacing:-.01em;}
+.navbar .brand .n span{color:var(--sage);}
+.btn{
+  border:none; cursor:pointer; font-family:'Manrope'; font-weight:800; font-size:13px;
+  border-radius:100px; padding:10px 22px; display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  transition:transform .15s ease, opacity .15s ease; text-decoration:none;
+}
+.btn:active{transform:scale(.97);}
+.btn-primary{background:var(--primary-bg); color:var(--primary-text);}
+.btn-primary:hover{opacity:.92;}
+.btn-outline{background:transparent; color:var(--text); border:1.6px solid rgba(var(--ink-rgb),0.22);}
+.btn-ghost{background:var(--sage); color:var(--dark);}
+.btn-sm{padding:7px 18px; font-size:12px;}
+.btn-block{width:100%;}
+.btn-icon{width:36px;height:36px;padding:0;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:15px;flex:0 0 auto;}
+
+/* HERO */
+.hero{
+  min-height:50vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; padding:120px 32px 60px; position:relative; overflow:hidden;
+}
+.hero::before{
+  content:''; position:absolute; top:-40%; left:-20%; width:80%; height:80%;
+  background:radial-gradient(ellipse, rgba(164,184,154,0.06) 0%, transparent 70%);
+  pointer-events:none;
+}
+.hero .h-icon{font-size:clamp(56px,8vw,80px); margin-bottom:16px;}
+.hero .tagline{
+  font-size:clamp(11px,1vw,13px); letter-spacing:.16em; text-transform:uppercase;
+  color:var(--sage); font-weight:800; margin-top:10px;
+}
+
+/* SECTION */
+.section{padding:60px 32px; max-width:900px; margin:0 auto;}
+.section-alt{background:rgba(var(--ink-rgb),0.02);}
+.section-wide{max-width:1100px;}
+
+/* CATEGORY GRID */
+.cat-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px;}
+.ccard{
+  background:var(--surface); border-radius:var(--radius-sm); padding:24px 20px;
+  border:1px solid rgba(var(--ink-rgb),0.08); box-shadow:0 4px 12px var(--tile-shadow);
+  text-align:center; cursor:default;
+  transition:transform .25s ease, box-shadow .25s ease;
+}
+.ccard:hover{transform:translateY(-3px); box-shadow:0 10px 24px var(--card-shadow);}
+.ccard .cicon{font-size:28px; margin-bottom:10px;}
+.ccard h3{font-size:14px; font-weight:800; margin:0 0 4px;}
+.ccard p{font-size:12px; color:var(--muted); line-height:1.5; margin:0;}
+
+/* FORM / MODAL */
+.form-card{
+  background:var(--surface); border-radius:var(--radius-sm); padding:32px 28px;
+  border:1px solid rgba(var(--ink-rgb),0.08); box-shadow:0 6px 18px var(--card-shadow);
+  max-width:560px; margin:0 auto;
+}
+.form-row{margin-bottom:16px;}
+.form-row label{display:block; font-size:12px; font-weight:800; color:var(--muted); margin-bottom:6px; letter-spacing:.02em;}
+.form-row input,.form-row select{
+  width:100%; background:var(--input-bg); border:1.6px solid rgba(var(--ink-rgb),0.18);
+  border-radius:var(--radius-xs); padding:12px 16px; font-size:14px; color:var(--text);
+  font-family:'Manrope'; font-weight:600; outline:none;
+  transition:border-color .2s ease;
+}
+.form-row input:focus,.form-row select:focus{border-color:var(--sage);}
+.form-row input::placeholder{color:var(--muted);}
+.form-row select option{background:var(--dark); color:var(--text);}
+.form-row-inline{display:flex; align-items:center; gap:12px; margin-bottom:16px;}
+.form-row-inline label{font-size:12px; font-weight:800; color:var(--muted); cursor:pointer;}
+
+/* TOGGLE SWITCH (from bitewise-app) */
+.toggle-switch{
+  width:48px; height:26px; border-radius:100px; background:rgba(var(--ink-rgb),0.16);
+  position:relative; cursor:pointer; flex:0 0 auto; transition:background .25s ease;
+}
+.toggle-switch .knob{
+  position:absolute; top:3px; left:3px; width:20px; height:20px; border-radius:50%;
+  background:var(--cream); transition:transform .25s cubic-bezier(.4,0,.2,1);
+}
+.toggle-switch.on{background:var(--sage);}
+.toggle-switch.on .knob{transform:translateX(22px);}
+
+/* REMINDER LIST */
+.reminder-list{display:flex; flex-direction:column; gap:10px;}
+.reminder-card{
+  background:var(--surface); border-radius:var(--radius-sm);
+  border:1px solid rgba(var(--ink-rgb),0.08); box-shadow:0 4px 12px var(--tile-shadow);
+  padding:18px 20px; display:flex; align-items:center; gap:14px;
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+.reminder-card:hover{box-shadow:0 8px 20px var(--card-shadow);}
+.reminder-card .r-icon{width:40px; height:40px; border-radius:12px; background:var(--tan); display:flex; align-items:center; justify-content:center; font-size:20px; flex:0 0 auto;}
+.reminder-card .r-info{flex:1; min-width:0;}
+.reminder-card .r-name{font-size:14px; font-weight:800;}
+.reminder-card .r-meta{font-size:11px; color:var(--muted); font-weight:600; margin-top:2px;}
+.reminder-card .r-meta span{margin-right:12px;}
+.reminder-card.inactive{opacity:.5;}
+.reminder-card .r-actions{display:flex; gap:6px; flex:0 0 auto;}
+.reminder-card .r-actions .btn-icon{font-size:13px;}
+
+.empty-state{text-align:center; padding:60px 20px; color:var(--muted);}
+.empty-state .e-icon{font-size:48px; margin-bottom:14px;}
+.empty-state p{font-size:14px; font-weight:600;}
+
+/* NOTIF BANNER */
+.notif-banner{
+  display:none; align-items:center; gap:12px; padding:12px 18px;
+  border-radius:var(--radius-xs); font-size:12px; font-weight:600; margin-bottom:16px;
+  background:rgba(164,184,154,0.12); border:1px solid rgba(164,184,154,0.25); color:var(--sage);
+}
+.notif-banner.active{display:flex;}
+.notif-banner .nb-btn{margin-left:auto; flex:0 0 auto;}
+
+/* FOOTER */
+.footer{
+  text-align:center; padding:40px 32px; border-top:1px solid rgba(var(--ink-rgb),0.06);
+  font-size:12px; color:var(--muted); font-weight:600;
+}
+.footer .fn{font-family:'Plus Jakarta Sans'; font-weight:800; color:var(--text);}
+.footer .fn span{color:var(--sage);}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .navbar{padding:12px 20px;}
+  .navbar .brand .n{font-size:17px;}
+  .hero{padding:100px 20px 50px; min-height:40vh;}
+  .section{padding:44px 20px;}
+  .section-title{margin-bottom:28px;}
+  .cat-grid{grid-template-columns:repeat(2,1fr); gap:12px;}
+  .form-card{padding:24px 20px;}
+  .reminder-card{padding:14px 16px; gap:10px;}
+}
+@media(max-width:480px){
+  .navbar{padding:10px 14px; height:56px;}
+  .navbar .brand svg{width:26px; height:26px;}
+  .navbar .brand .n{font-size:15px;}
+  .btn{padding:8px 16px; font-size:12px;}
+  .btn-sm{padding:6px 14px; font-size:11px;}
+  .hero{padding:80px 14px 40px; min-height:35vh;}
+  .section{padding:36px 14px;}
+  .cat-grid{grid-template-columns:1fr 1fr; gap:10px;}
+  .ccard{padding:18px 14px;}
+  .ccard .cicon{font-size:22px;}
+  .form-card{padding:20px 16px;}
+  .form-row input,.form-row select{font-size:13px; padding:10px 14px;}
+  .reminder-card{padding:12px 14px; gap:8px; flex-wrap:wrap;}
+  .reminder-card .r-icon{width:34px; height:34px; font-size:16px;}
+  .reminder-card .r-name{font-size:13px;}
+  .reminder-card .r-meta{font-size:10px;}
+  .reminder-card .r-actions{margin-left:auto;}
+  .section-title{margin-bottom:22px;}
+  .footer{padding:28px 14px; font-size:11px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="bitewise-app.html" class="brand">
+    <svg width="32" height="32" viewBox="0 0 120 120" fill="none">
+      <circle cx="60" cy="55" r="42" style="stroke:var(--text);" stroke-width="4"/>
+      <path d="M60 35 C60 35 46 44 46 56 C46 64 52 70 60 70 C68 70 74 64 74 56 C74 44 60 35 60 35Z" style="stroke:var(--sage);" stroke-width="3.4" fill="none"/>
+      <path d="M60 70 L60 78" style="stroke:var(--sage);" stroke-width="3.4"/>
+      <path d="M22 60 C22 60 20 78 30 86 C36 90.5 42 88 44 82" style="stroke:var(--text);" stroke-width="4" stroke-linecap="round" fill="none"/>
+      <circle cx="47" cy="86" r="6.5" style="stroke:var(--text);" stroke-width="4"/>
+    </svg>
+    <span class="n">Bite<span>Wise</span></span>
+  </a>
+  <a href="bitewise-app.html" class="btn btn-primary btn-sm">Open App</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="h-icon">⏰</div>
+  <h1 class="display">Reminders</h1>
+  <p class="sub" style="max-width:460px;margin:6px auto 0;">Stay on track with your nutrition and health goals.</p>
+  <div class="tagline">Never Miss a Beat</div>
+</section>
+
+<!-- REMINDER CATEGORIES -->
+<section class="section" id="categories">
+  <div class="section-title">
+    <h2 class="display">Reminder Categories</h2>
+    <p class="sub">Manage reminders across meals, water, fitness, nutrition, and health.</p>
+  </div>
+  <div class="cat-grid">
+    <div class="ccard"><div class="cicon">🍽️</div><h3>Meal Reminders</h3><p>Breakfast, lunch, dinner, and snacks — never miss a meal.</p></div>
+    <div class="ccard"><div class="cicon">💧</div><h3>Water Reminders</h3><p>Stay hydrated with custom drink-water notifications throughout the day.</p></div>
+    <div class="ccard"><div class="cicon">🏃</div><h3>Health & Fitness</h3><p>Exercise reminders and daily activity prompts to keep you moving.</p></div>
+    <div class="ccard"><div class="cicon">📊</div><h3>Nutrition Tracking</h3><p>Log meals and check your daily nutrition progress on schedule.</p></div>
+    <div class="ccard"><div class="cicon">💊</div><h3>Medical & Health</h3><p>Medicine reminders and health check alerts for important routines.</p></div>
+  </div>
+</section>
+
+<!-- CREATE REMINDER -->
+<section class="section section-alt" id="create">
+  <div class="section-title">
+    <h2 class="display">Create a Reminder</h2>
+    <p class="sub">Set a new reminder for meals, water, fitness, or health.</p>
+  </div>
+
+  <div class="notif-banner" id="notifBanner">
+    <span>🔔 Enable browser notifications to receive reminders at the scheduled time.</span>
+    <span class="btn btn-ghost btn-sm nb-btn" onclick="requestNotifPermission()">Enable</span>
+  </div>
+
+  <div class="form-card">
+    <div class="form-row">
+      <label>Reminder Title</label>
+      <input type="text" id="reminderTitle" placeholder="e.g. Morning Breakfast">
+    </div>
+    <div class="form-row">
+      <label>Category</label>
+      <select id="reminderCategory">
+        <option value="Meal">🍽️ Meal</option>
+        <option value="Water">💧 Water</option>
+        <option value="Fitness">🏃 Fitness</option>
+        <option value="Nutrition">📊 Nutrition</option>
+        <option value="Medical">💊 Medical</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <label>Time</label>
+      <input type="time" id="reminderTime" value="08:00">
+    </div>
+    <div class="form-row-inline">
+      <label>Active</label>
+      <div class="toggle-switch on" id="reminderActiveToggle" onclick="this.classList.toggle('on')">
+        <div class="knob"></div>
+      </div>
+    </div>
+    <button class="btn btn-primary btn-block" onclick="addReminder()">+ Add Reminder</button>
+  </div>
+</section>
+
+<!-- SAVED REMINDERS -->
+<section class="section section-wide" id="list">
+  <div class="section-title">
+    <h2 class="display">Your Reminders</h2>
+    <p class="sub">All your saved reminders, ready to keep you on track.</p>
+  </div>
+  <div id="reminderContainer">
+    <div class="empty-state" id="emptyState">
+      <div class="e-icon">🔔</div>
+      <p>No reminders set yet. Create your first reminder.</p>
+    </div>
+    <div class="reminder-list" id="reminderList"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>&copy; 2026 <span class="fn">Bite<span>Wise</span></span> &mdash; Every Bite, Verified. Stay reminded, stay healthy.</p>
+</footer>
+
+<script>
+function _remUid(){ try { return localStorage.getItem('bw_uid') || ''; } catch(e){ return ''; } }
+var REMINDERS_KEY = 'bw_reminders_' + _remUid();
+function _refreshRemKey(){ try { REMINDERS_KEY='bw_reminders_'+_remUid(); } catch(e){} }
+
+function getReminders() {
+  _refreshRemKey();
+  try { return JSON.parse(localStorage.getItem(REMINDERS_KEY)) || []; } catch(e){ return []; }
+}
+
+function saveReminders(arr) {
+  _refreshRemKey();
+  localStorage.setItem(REMINDERS_KEY, JSON.stringify(arr));
+}
+
+function genId() {
+  return Date.now().toString(36) + Math.random().toString(36).slice(2,6);
+}
+
+function getCategoryIcon(cat) {
+  return {Meal:'🍽️', Water:'💧', Fitness:'🏃', Nutrition:'📊', Medical:'💊'}[cat] || '🔔';
+}
+
+function addReminder() {
+  var title = document.getElementById('reminderTitle').value.trim();
+  var category = document.getElementById('reminderCategory').value;
+  var time = document.getElementById('reminderTime').value;
+  var active = document.getElementById('reminderActiveToggle').classList.contains('on');
+
+  if (!title) { alert('Please enter a reminder title.'); return; }
+
+  var reminders = getReminders();
+
+  // Prevent duplicates
+  var dup = reminders.some(function(r){ return r.title.toLowerCase() === title.toLowerCase() && r.category === category && r.time === time; });
+  if (dup) { alert('A reminder with the same title, category, and time already exists.'); return; }
+
+  reminders.push({ id: genId(), title: title, category: category, time: time, active: active, created: new Date().toISOString() });
+  saveReminders(reminders);
+  renderReminders();
+
+  // Clear form
+  document.getElementById('reminderTitle').value = '';
+  document.getElementById('reminderActiveToggle').classList.add('on');
+
+  // Schedule notification
+  if (active && Notification.permission === 'granted') scheduleNotif(title, time);
+
+  alert('Reminder created: "' + title + '" at ' + time);
+}
+
+function deleteReminder(id) {
+  if (!confirm('Delete this reminder?')) return;
+  var reminders = getReminders().filter(function(r){ return r.id !== id; });
+  saveReminders(reminders);
+  renderReminders();
+}
+
+function toggleReminder(id) {
+  var reminders = getReminders();
+  reminders.forEach(function(r){
+    if (r.id === id) {
+      r.active = !r.active;
+      if (r.active && Notification.permission === 'granted') scheduleNotif(r.title, r.time);
+    }
+  });
+  saveReminders(reminders);
+  renderReminders();
+}
+
+function renderReminders() {
+  var list = document.getElementById('reminderList');
+  var empty = document.getElementById('emptyState');
+  var reminders = getReminders();
+
+  if (reminders.length === 0) {
+    list.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+
+  empty.style.display = 'none';
+  list.innerHTML = reminders.map(function(r){
+    var icon = getCategoryIcon(r.category);
+    var time12 = r.time ? formatTime12(r.time) : '—';
+    var cls = r.active ? '' : 'inactive';
+    return '<div class="reminder-card ' + cls + '">' +
+      '<div class="r-icon">' + icon + '</div>' +
+      '<div class="r-info">' +
+        '<div class="r-name">' + esc(r.title) + '</div>' +
+        '<div class="r-meta"><span>' + esc(r.category) + '</span><span>' + time12 + '</span></div>' +
+      '</div>' +
+      '<div class="r-actions">' +
+        '<div class="toggle-switch ' + (r.active ? 'on' : '') + '" onclick="toggleReminder(\'' + r.id + '\')"><div class="knob"></div></div>' +
+        '<button class="btn btn-outline btn-icon" onclick="deleteReminder(\'' + r.id + '\')" title="Delete">✕</button>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function formatTime12(t) {
+  var parts = t.split(':');
+  var h = parseInt(parts[0], 10);
+  var m = parts[1];
+  var ampm = h >= 12 ? 'PM' : 'AM';
+  h = h % 12 || 12;
+  return h + ':' + m + ' ' + ampm;
+}
+
+function esc(s) {
+  var d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+// ======================== NOTIFICATIONS ========================
+
+function checkNotifStatus() {
+  var banner = document.getElementById('notifBanner');
+  if (!('Notification' in window)) { banner.classList.remove('active'); return; }
+  if (Notification.permission === 'default') { banner.classList.add('active'); }
+  else { banner.classList.remove('active'); }
+}
+
+function requestNotifPermission() {
+  if (!('Notification' in window)) { alert('Notifications are not supported in this browser.'); return; }
+  Notification.requestPermission().then(function(perm) {
+    var banner = document.getElementById('notifBanner');
+    if (perm === 'granted') {
+      banner.classList.remove('active');
+      // Schedule all active reminders
+      getReminders().forEach(function(r){ if (r.active) scheduleNotif(r.title, r.time); });
+    } else {
+      alert('Notification permission denied. You can enable it later in your browser settings.');
+      banner.classList.remove('active');
+    }
+  });
+}
+
+function scheduleNotif(title, time) {
+  if (Notification.permission !== 'granted') return;
+  var now = new Date();
+  var parts = time.split(':');
+  var target = new Date();
+  target.setHours(parseInt(parts[0],10), parseInt(parts[1],10), 0, 0);
+
+  if (target <= now) target.setDate(target.getDate() + 1);
+  var delay = target.getTime() - now.getTime();
+
+  setTimeout(function() {
+    if (Notification.permission === 'granted') {
+      try {
+        var notif = new Notification('BiteWise Reminder', {
+          body: title,
+          icon: 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48"><circle cx="24" cy="22" r="16" fill="#A4B89A"/><text x="24" y="27" text-anchor="middle" font-size="18" fill="#10241E">B</text></svg>')
+        });
+        setTimeout(function(){ notif.close(); }, 8000);
+      } catch(e){}
+    }
+    // Re-schedule for next day
+    scheduleNotif(title, time);
+  }, delay);
+}
+
+// ======================== INIT ========================
+function init() {
+  checkNotifStatus();
+  renderReminders();
+}
+
+init();
+</script>
+
+</body>
+</html>

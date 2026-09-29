@@ -1,0 +1,15 @@
+# Exclude secrets and heavy/generated dirs from railway up uploads
+.env
+.env.*
+venv/
+backend/venv/
+node_modules/
+__pycache__/
+*.pyc
+dataset/
+backend/dataset/
+siglip_models/
+backend/models/*.pkl
+.railway/
+.git/
+*.log

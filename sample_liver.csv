@@ -1,0 +1,6 @@
+age,gender,bmi,alcohol_consumption,smoking_status,hepatitis_b,hepatitis_c,liver_function_score,alpha_fetoprotein_level,cirrhosis_history,family_history_cancer,physical_activity_level,diabetes
+45,Male,28.5,Occasional,Former,0,0,72,15.2,0,1,Moderate,0
+52,Female,31.2,Regular,Current,0,1,45,85.6,1,0,Low,1
+34,Female,22.1,Never,Never,0,0,88,5.3,0,0,High,0
+61,Male,26.8,Occasional,Former,1,0,35,120.4,1,1,Low,1
+29,Female,19.5,Never,Never,0,0,92,3.8,0,0,Moderate,0

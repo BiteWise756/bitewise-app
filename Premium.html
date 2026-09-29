@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PJ7MP3LK0C"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-PJ7MP3LK0C');
+  </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BiteWise Premium</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dark:#10241E; --green:#53775A; --sage:#A4B89A; --tan:#E7DEC9;
+    --cream:#F7F4EE; --white:#ffffff;
+    --surface:rgba(247,244,238,0.07); --surface-strong:rgba(247,244,238,0.12);
+    --muted:#9db2a8; --bg:var(--dark); --text:var(--cream);
+    --ink-rgb:247,244,238;
+    --primary-bg:var(--cream); --primary-text:var(--dark);
+    --card-shadow:rgba(0,0,0,0.25);
+    --accent-text:var(--sage);
+    --radius:26px; --radius-sm:14px;
+    --shadow:0 12px 30px rgba(0,0,0,0.35);
+    font-family:'Manrope',sans-serif;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0}
+  body{
+    background:var(--dark); min-height:100vh; display:flex; flex-direction:column;
+    color:var(--cream); padding:0;
+  }
+  .display{font-family:'Plus Jakarta Sans',sans-serif}
+
+  .phone-wrap{
+    width:100%; max-width:480px; margin:0 auto; padding:24px 0;
+    display:flex; flex-direction:column; min-height:100vh;
+  }
+
+  .px{padding-left:26px; padding-right:26px;}
+
+  .badge{
+    display:inline-flex; align-items:center; gap:8px; background:var(--surface);
+    border-radius:100px; padding:7px 18px; margin-bottom:16px;
+    font-size:11px; font-weight:800; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--sage); border:1px solid rgba(var(--ink-rgb),0.08);
+    align-self:center;
+  }
+  .badge svg{width:14px; height:14px; stroke:var(--sage); fill:none; stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round;}
+
+  h1.display{font-size:30px; margin:0 0 6px; font-weight:800; letter-spacing:-.01em; text-align:center;}
+  p.sub{font-size:13.5px; color:var(--muted); line-height:1.55; text-align:center; max-width:380px; margin:0 auto;}
+
+  .features-grid{display:flex; flex-direction:column; gap:14px; margin-top:28px;}
+  .feature-card{
+    background:var(--surface); border-radius:var(--radius); padding:20px 22px;
+    border:1px solid rgba(var(--ink-rgb),0.08);
+    box-shadow:0 6px 18px var(--card-shadow);
+    display:flex; align-items:flex-start; gap:16px;
+    transition:transform .28s cubic-bezier(.4,0,.2,1),box-shadow .28s ease,border-color .28s ease,background .28s ease;
+    cursor:default;
+  }
+  .feature-card:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(0,0,0,0.35);border-color:var(--sage);background:rgba(247,244,238,0.10);}
+  .feature-card:active{transform:translateY(-1px) scale(.99);}
+
+  .fc-icon{
+    width:48px; height:48px; min-width:48px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    flex:0 0 auto;
+  }
+  .fc-icon svg{width:24px; height:24px; stroke:var(--dark); fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round;}
+  .fc-icon.green{background:var(--sage);}
+  .fc-icon.tan{background:var(--tan);}
+
+  .fc-body{flex:1; min-width:0;}
+  .fc-title{font-weight:800; font-size:14.5px; color:var(--text); margin-bottom:2px;}
+  .fc-desc{font-size:12px; color:var(--muted); font-weight:600; line-height:1.45;}
+  .fc-exclusive{
+    display:inline-flex; align-items:center; gap:4px; margin-top:8px;
+    font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.08em;
+    color:var(--sage); background:rgba(164,184,154,0.13);
+    padding:3px 10px; border-radius:100px;
+  }
+  .fc-exclusive svg{width:12px; height:12px; fill:var(--sage); stroke:none;}
+
+  .pricing-section{margin-top:32px;}
+
+  .btn{
+    border:none; cursor:pointer; font-family:'Manrope'; font-weight:800; font-size:14.5px;
+    border-radius:100px; padding:16px 20px; display:flex; align-items:center; justify-content:center; gap:8px;
+    transition:transform .15s ease, opacity .15s ease;
+    width:100%;
+  }
+  .btn:active{transform:scale(.97);}
+  .btn-primary{background:var(--primary-bg); color:var(--primary-text);}
+  .btn-primary:hover{opacity:.92;}
+  .btn-outline{background:transparent; color:var(--text); border:1.6px solid rgba(var(--ink-rgb),0.22);}
+  .btn-outline:hover{background:rgba(247,244,238,0.05); border-color:rgba(var(--ink-rgb),0.35);}
+  .btn-ghost{background:var(--sage); color:var(--dark);}
+
+  .secondary-row{margin-top:20px; text-align:center;}
+  .link-maybe{
+    background:none; border:none; cursor:pointer; font-family:'Manrope';
+    font-size:13.5px; font-weight:700; color:var(--muted);
+    padding:8px 16px; border-radius:100px;
+    transition:color .15s ease, background .15s ease;
+  }
+  .link-maybe:hover{color:var(--text); background:rgba(247,244,238,0.06);}
+
+  .footnote{text-align:center; font-size:11px; color:var(--muted); font-weight:600; margin-top:20px; opacity:.6;}
+
+  /* Animation */
+  .anim-fade{animation:fadeUp .6s ease forwards; opacity:0;}
+  .anim-fade-d1{animation-delay:.08s;}
+  .anim-fade-d2{animation-delay:.16s;}
+  .anim-fade-d3{animation-delay:.24s;}
+  .anim-fade-d4{animation-delay:.32s;}
+  .anim-fade-d5{animation-delay:.40s;}
+  @keyframes fadeUp{
+    0%{opacity:0;transform:translateY(18px);}
+    100%{opacity:1;transform:translateY(0);}
+  }
+
+  /* Pricing grid — side by side */
+  .pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .pricing-card{
+    background:linear-gradient(135deg,#2a4a3c,#12241c); border-radius:22px; padding:26px 20px;
+    border:1px solid rgba(247,244,238,0.1);
+    position:relative; overflow:hidden; display:flex; flex-direction:column;
+    transition:transform .3s cubic-bezier(.4,0,.2,1),box-shadow .3s ease,border-color .3s ease;
+  }
+  .pricing-card:hover{transform:translateY(-4px);}
+  .pricing-card::before{
+    content:''; position:absolute; top:-50%; right:-30%; width:240px; height:240px;
+    background:radial-gradient(circle,rgba(164,184,154,0.06),transparent 70%);
+    border-radius:50%; pointer-events:none;
+  }
+  .pricing-card.recommended{
+    border-color:#C9A84C; box-shadow:0 0 30px rgba(201,168,76,0.18),0 8px 28px rgba(0,0,0,0.3);
+    background:linear-gradient(135deg,#2d4d3c,#14261e);
+  }
+  .pricing-card.recommended::after{
+    content:''; position:absolute; inset:0; border-radius:22px;
+    padding:2px; background:linear-gradient(135deg,#C9A84C,#E8D48B,#C9A84C);
+    -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+    -webkit-mask-composite:exclude; mask-composite:exclude; pointer-events:none;
+  }
+  .best-value{
+    display:inline-flex; align-items:center; gap:4px;
+    background:linear-gradient(135deg,#C9A84C,#E8D48B); color:#10241E;
+    font-size:9.5px; font-weight:800; padding:4px 10px; border-radius:100px; margin-bottom:10px;
+    text-transform:uppercase; letter-spacing:.06em;
+  }
+  .best-value svg{width:11px;height:11px;}
+  .pricing-card .pbadge{
+    display:inline-block; background:linear-gradient(135deg,#C9A84C,#E8D48B); color:#10241E;
+    font-size:10.5px; font-weight:800; padding:4px 12px; border-radius:100px; margin-bottom:10px;
+    align-self:flex-start;
+  }
+  .pricing-card h2.price-title{font-size:17px; color:var(--cream); margin-bottom:2px; font-weight:800; letter-spacing:-.01em;}
+  .pricing-card .price-sub{font-size:11.5px; color:#bccfc4; line-height:1.45; margin-bottom:12px; flex:1;}
+  .pricing-card .price-amount{
+    font-family:'Plus Jakarta Sans',sans-serif; font-size:30px; font-weight:800; color:var(--cream); letter-spacing:-.02em;
+  }
+  .pricing-card .price-period{font-size:12px; color:#bccfc4; font-weight:600;}
+  .pricing-card .price-original{
+    font-size:13px; color:rgba(247,244,238,0.3); text-decoration:line-through; margin-left:4px; font-weight:700;
+  }
+  .pricing-card .btn{margin-top:16px;}
+  .pricing-card ul{margin:10px 0 0; font-size:11.5px; line-height:2; color:#d8e3dc; list-style:none; padding-left:0;}
+  .pricing-card ul li{position:relative; padding-left:20px;}
+  .pricing-card ul li::before{
+    content:''; position:absolute; left:0; top:50%; transform:translateY(-50%);
+    width:10px; height:10px; background:var(--sage); border-radius:50%;
+    mask:url("data:image/svg+xml,%3Csvg viewBox='0 0 12 12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2.5 6l2.5 2.5 4.5-5' fill='none' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/cover;
+    -webkit-mask:url("data:image/svg+xml,%3Csvg viewBox='0 0 12 12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2.5 6l2.5 2.5 4.5-5' fill='none' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/cover;
+  }
+
+  /* Confetti canvas */
+  .confetti-canvas{
+    position:fixed; inset:0; width:100%; height:100%;
+    pointer-events:none; z-index:9999;
+  }
+  /* Success overlay */
+  .success-overlay{
+    display:none; position:fixed; inset:0; z-index:10000;
+    background:rgba(16,36,30,0.88);
+    align-items:center; justify-content:center; flex-direction:column;
+    animation:fadeIn .3s ease forwards;
+  }
+  .success-overlay.active{display:flex;}
+  .success-overlay .emoji{font-size:60px; margin-bottom:12px;}
+  .success-overlay .msg{font-size:24px; font-weight:800; color:var(--cream); letter-spacing:-.01em;}
+  .success-overlay .sub{font-size:13px; color:var(--sage); margin-top:6px; font-weight:600;}
+  @keyframes fadeIn{0%{opacity:0}100%{opacity:1}}
+
+  @media(max-width:420px){
+    h1.display{font-size:25px;}
+    .px{padding-left:18px; padding-right:18px;}
+    .feature-card{padding:16px 18px; gap:14px;}
+    .fc-icon{width:42px; height:42px; min-width:42px;}
+    .fc-icon svg{width:20px; height:20px;}
+    .pricing-card{padding:22px 18px;}
+    .price-amount{font-size:30px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="phone-wrap">
+
+  <div class="px" style="text-align:center; padding-top:32px;">
+    <div class="badge anim-fade">
+      <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.2H22l-6 4.8 2.4 7.2L12 16l-6.4 5.2L8 14l-6-4.8h7.6z"/></svg>
+      Premium
+    </div>
+    <h1 class="display anim-fade anim-fade-d1">BiteWise Premium</h1>
+    <p class="sub anim-fade anim-fade-d2">Unlock advanced AI-powered health features.</p>
+  </div>
+
+  <div class="px features-grid">
+
+    <div class="feature-card anim-fade anim-fade-d1">
+      <div class="fc-icon tan">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      </div>
+      <div class="fc-body">
+        <div class="fc-title">Unlimited AI Scans</div>
+        <div class="fc-desc">Scan unlimited meals and health data with AI insights.</div>
+        <div class="fc-exclusive">
+          <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.2H22l-6 4.8 2.4 7.2L12 16l-6.4 5.2L8 14l-6-4.8h7.6z"/></svg>
+          Exclusive
+        </div>
+      </div>
+    </div>
+
+    <div class="feature-card anim-fade anim-fade-d2">
+      <div class="fc-icon green">
+        <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.2H22l-6 4.8 2.4 7.2L12 16l-6.4 5.2L8 14l-6-4.8h7.6z"/><circle cx="12" cy="12" r="2" fill="var(--dark)" stroke="none"/></svg>
+      </div>
+      <div class="fc-body">
+        <div class="fc-title">Unlock All Features</div>
+        <div class="fc-desc">Get full access to all BiteWise AI-powered features.</div>
+        <div class="fc-exclusive">
+          <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.2H22l-6 4.8 2.4 7.2L12 16l-6.4 5.2L8 14l-6-4.8h7.6z"/></svg>
+          Exclusive
+        </div>
+      </div>
+    </div>
+
+    <div class="feature-card anim-fade anim-fade-d3">
+      <div class="fc-icon tan">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2z"/><path d="M7 12l3 3 7-7"/></svg>
+      </div>
+      <div class="fc-body">
+        <div class="fc-title">Unlimited AI Nutrition Coach</div>
+        <div class="fc-desc">Get unlimited AI nutrition guidance, meal advice, and personalized health support.</div>
+        <div class="fc-exclusive">
+          <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.2H22l-6 4.8 2.4 7.2L12 16l-6.4 5.2L8 14l-6-4.8h7.6z"/></svg>
+          Exclusive
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="px pricing-section">
+    <div class="pricing-grid">
+
+      <div class="pricing-card anim-fade anim-fade-d4">
+        <span class="pbadge">MONTHLY</span>
+        <h2 class="price-title">Monthly Plan</h2>
+        <p class="price-sub">Flexible month-to-month with full premium access.</p>
+        <div class="price-row">
+          <span class="price-amount">99 EGP</span>
+          <span class="price-period">/ month</span>
+        </div>
+        <ul>
+          <li>Unlimited AI meal &amp; health scans</li>
+          <li>Unlimited AI Nutrition Coach</li>
+          <li>Unlock All Features</li>
+        </ul>
+        <button class="btn btn-outline" onclick="upgradePremium('monthly')">Upgrade</button>
+      </div>
+
+      <div class="pricing-card recommended anim-fade anim-fade-d4">
+        <span class="best-value">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.2H22l-6 4.8 2.4 7.2L12 16l-6.4 5.2L8 14l-6-4.8h7.6z"/></svg>
+          Best Value
+        </span>
+        <h2 class="price-title">Yearly Plan</h2>
+        <p class="price-sub">Full year of premium features at a great price.</p>
+        <div class="price-row">
+          <span class="price-amount">199 EGP</span>
+          <span class="price-period">/ year</span>
+          <span class="price-original">1,199 EGP</span>
+        </div>
+        <ul>
+          <li>Unlimited AI meal &amp; health scans</li>
+          <li>Unlimited AI Nutrition Coach</li>
+          <li>Unlock All Features</li>
+        </ul>
+        <button class="btn btn-ghost" onclick="upgradePremium('yearly')">Upgrade to Premium</button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="secondary-row anim-fade anim-fade-d5">
+    <button class="link-maybe" onclick="maybeLater()">Maybe Later</button>
+  </div>
+
+  <div class="footnote anim-fade anim-fade-d5">Cancel anytime. 7-day free trial included.</div>
+
+  <div class="success-overlay" id="successOverlay">
+    <div class="emoji">🎉</div>
+    <div class="msg">Welcome to BiteWise Premium! 🎉</div>
+    <div class="sub">Your subscription is now active.</div>
+  </div>
+
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script>
+  // Firebase for getting fresh ID token (needed for Authorization header)
+  (function(){
+    var cfg = {
+      apiKey: "AIzaSyAqMiJfPQ2KqsglfPwwC4LwSuHYUIE-S-8",
+      authDomain: "nutrilens-ai-fd9fb.firebaseapp.com",
+      projectId: "nutrilens-ai-fd9fb",
+      storageBucket: "nutrilens-ai-fd9fb.firebasestorage.app",
+      messagingSenderId: "683160208592",
+      appId: "1:683160208592:web:f20c2d25abde36d79c0ad5"
+    };
+    if (!firebase.apps.length) firebase.initializeApp(cfg);
+  })();
+
+  var _isUpgrading = false;
+  async function upgradePremium(plan){
+    if (_isUpgrading) return;
+    var uid = localStorage.getItem('bw_uid') || '';
+    // Check authentication
+    if (!uid) {
+      window.location.href = 'Sign.html';
+      return;
+    }
+    var btn = event && event.target ? event.target.closest('button') : null;
+    if (!btn) {
+      // Fallback: find the clicked plan's button
+      var cards = document.querySelectorAll('.pricing-card');
+      for (var i=0;i<cards.length;i++) {
+        var b = cards[i].querySelector('button');
+        if (b && b.getAttribute('onclick') && b.getAttribute('onclick').indexOf(plan) !== -1) { btn = b; break; }
+      }
+      if (!btn) btn = document.querySelector('.pricing-card.recommended .btn');
+    }
+    var originalText = btn ? btn.textContent : '';
+    try {
+      _isUpgrading = true;
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = 'Redirecting to payment...';
+        btn.style.opacity = '0.7';
+      }
+      // Get fresh Firebase ID token
+      var token = localStorage.getItem('bw_token') || '';
+      try {
+        var user = firebase.auth().currentUser;
+        if (user) {
+          token = await user.getIdToken();
+          localStorage.setItem('bw_token', token);
+        }
+      } catch(e) {}
+      if (!token) {
+        throw new Error('Not authenticated. Please sign in again.');
+      }
+      console.log('[Paymob] Creating checkout for uid=' + uid + ' plan=' + plan);
+      var res = await fetch((window.location.origin || 'https://mybitewise.up.railway.app') + '/payments/create-checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify({plan_id: plan})
+      });
+      var data = await res.json().catch(function(){ return {}; });
+      if (!res.ok) {
+        throw new Error((data && data.detail) || 'Failed to create checkout. Please try again.');
+      }
+      var checkoutUrl = (data && (data.payment_url || (data.data && data.data.payment_url))) || data.checkout_url || data.url;
+      // Handle wrapped success response: {success:true, data:{payment_url:...}}
+      if (!checkoutUrl && data && data.data && data.data.payment_url) checkoutUrl = data.data.payment_url;
+      if (!checkoutUrl) {
+        throw new Error('No checkout URL returned. Please try again.');
+      }
+      console.log('[Paymob] Checkout URL generated, redirecting to Paymob');
+      // For sandbox mock (Payment.html?payment_id=...), still redirect
+      window.location.href = checkoutUrl;
+    } catch (e) {
+      console.error('[Paymob] Checkout creation failed:', e);
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = originalText;
+        btn.style.opacity = '1';
+      }
+      _isUpgrading = false;
+      var msg = e && e.message ? e.message : 'Failed to start payment. Please try again.';
+      // Show error near buttons
+      var errEl = document.getElementById('premiumErr');
+      if (!errEl) {
+        errEl = document.createElement('div');
+        errEl.id = 'premiumErr';
+        errEl.style.cssText = 'margin-top:16px;color:#e58a7a;background:rgba(229,138,122,0.1);border:1px solid #e58a7a;border-radius:12px;padding:12px;text-align:center;font-size:13px;font-weight:700;';
+        var grid = document.querySelector('.pricing-grid');
+        if (grid && grid.parentNode) grid.parentNode.insertBefore(errEl, grid.nextSibling);
+      }
+      errEl.textContent = msg;
+      errEl.style.display = 'block';
+    }
+  }
+
+  function startConfetti(){
+    var canvas = document.getElementById('confettiCanvas');
+    if (!canvas) {
+      canvas = document.createElement('canvas');
+      canvas.className = 'confetti-canvas';
+      canvas.id = 'confettiCanvas';
+      document.body.appendChild(canvas);
+    }
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    var ctx = canvas.getContext('2d');
+    var colors = ['#F7F4EE','#A4B89A','#E7DEC9','#53775A','#C9A84C','#E8D48B','#FF6B6B','#48D1CC','#FFD700','#FFA500'];
+    var particles = [];
+    for (var i = 0; i < 180; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height - canvas.height,
+        w: Math.random() * 10 + 4,
+        h: Math.random() * 6 + 3,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        vx: (Math.random() - 0.5) * 5,
+        vy: Math.random() * 3 + 2,
+        rot: Math.random() * 360,
+        rotV: (Math.random() - 0.5) * 12,
+        opacity: 1
+      });
+    }
+    var frame = 0;
+    function animate(){
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      var done = true;
+      for (var i = 0; i < particles.length; i++) {
+        var p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.rot += p.rotV;
+        p.vy += 0.06;
+        if (frame > 80) p.opacity -= 0.008;
+        if (p.opacity > 0 && p.y < canvas.height + 30) {
+          done = false;
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.rot * Math.PI / 180);
+          ctx.globalAlpha = Math.max(0, p.opacity);
+          ctx.fillStyle = p.color;
+          ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h);
+          ctx.restore();
+        }
+      }
+      frame++;
+      if (!done && frame < 400) requestAnimationFrame(animate);
+      else if (canvas.parentNode) canvas.parentNode.removeChild(canvas);
+    }
+    animate();
+  }
+
+  function maybeLater(){
+    history.back();
+  }
+</script>
+</body>
+</html>

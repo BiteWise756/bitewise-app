@@ -1,0 +1,12 @@
+from .auth import router as auth_router
+from .meals import router as meals_router
+from .nutrition import router as nutrition_router
+from .chat import router as chat_router
+from .shopping import router as shopping_router
+from .favorites import router as favorites_router
+from .challenges import router as challenges_router
+from .doctor import router as doctor_router
+from .users import router as users_router
+from .support import router as support_router
+from .payments import router as payments_router
+from .unsplash import router as unsplash_router

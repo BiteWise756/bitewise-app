@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PJ7MP3LK0C"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-PJ7MP3LK0C');
+  </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Medical AI — Choose Mode</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dark:#10241E; --green:#53775A; --sage:#A4B89A; --tan:#E7DEC9;
+    --cream:#F7F4EE; --white:#ffffff;
+    --surface:rgba(247,244,238,0.07); --surface-strong:rgba(247,244,238,0.12);
+    --muted:#9db2a8; --bg:var(--dark); --text:var(--cream);
+    --ink-rgb:247,244,238;
+    --primary-bg:var(--cream); --primary-text:var(--dark);
+    --card-shadow:rgba(0,0,0,0.25); --accent-text:var(--sage);
+    --radius:26px; --radius-sm:14px;
+    font-family:'Manrope',sans-serif;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0}
+  body{
+    background:var(--dark); min-height:100vh; display:flex; align-items:center; justify-content:center;
+    color:var(--cream); padding:24px;
+  }
+  .display{font-family:'Plus Jakarta Sans',sans-serif}
+
+  .container{width:100%;max-width:820px;text-align:center}
+
+  .badge{
+    display:inline-flex;align-items:center;gap:8px;background:var(--surface);
+    border-radius:100px;padding:8px 20px;margin-bottom:28px;
+    font-size:11.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--sage);border:1px solid rgba(var(--ink-rgb),0.08);
+  }
+
+  h1.display{font-size:34px;margin:0 0 8px;font-weight:800;letter-spacing:-.01em}
+  p.sub{
+    font-size:14px;color:var(--muted);margin:0 auto 42px;line-height:1.65;
+    max-width:560px
+  }
+
+  .mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .mode-card{
+    background:var(--surface);border-radius:var(--radius);padding:34px 26px 30px;
+    border:1px solid rgba(var(--ink-rgb),0.08);
+    box-shadow:0 6px 18px var(--card-shadow);
+    cursor:pointer;text-decoration:none;color:var(--text);
+    display:flex;flex-direction:column;align-items:center;gap:14px;
+    transition:transform .28s cubic-bezier(.4,0,.2,1),box-shadow .28s ease,border-color .28s ease,background .28s ease;
+    position:relative;overflow:hidden;
+  }
+  .mode-card::before{
+    content:'';position:absolute;inset:0;border-radius:inherit;
+    opacity:0;transition:opacity .28s ease;
+    background:linear-gradient(135deg,transparent 60%,rgba(164,184,154,0.06));
+  }
+  .mode-card:hover{transform:translateY(-6px);box-shadow:0 14px 34px rgba(0,0,0,0.35);border-color:var(--sage);background:rgba(247,244,238,0.10)}
+  .mode-card:hover::before{opacity:1}
+  .mode-card:active{transform:translateY(-2px) scale(.97)}
+
+  .mode-icon{
+    width:76px;height:76px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-size:34px;
+    margin-bottom:2px;flex-shrink:0;
+  }
+  .mode-card:first-child .mode-icon{background:var(--tan)}
+  .mode-card:last-child .mode-icon{background:var(--sage)}
+
+  .mode-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:20px;font-weight:800}
+  .mode-desc{font-size:12.5px;color:var(--muted);font-weight:600;line-height:1.55;margin:0}
+  .mode-tag{
+    display:inline-flex;align-items:center;gap:6px;
+    background:var(--surface-strong);padding:6px 16px;border-radius:100px;
+    font-size:11px;font-weight:800;color:var(--sage);margin-top:2px;
+  }
+
+  /* ---------- PREMIUM CARD ---------- */
+  .mode-card.premium{
+    border:2px solid transparent;
+    background:linear-gradient(var(--dark),var(--dark)) padding-box,linear-gradient(135deg,#d4af37,#f5d76e,#e6c35c,#d4af37) border-box;
+    box-shadow:0 6px 18px var(--card-shadow),0 0 28px rgba(212,175,55,0.10);
+    position:relative;
+  }
+  .mode-card.premium:hover{
+    box-shadow:0 14px 34px rgba(0,0,0,0.35),0 0 40px rgba(212,175,55,0.22);
+    border-color:transparent;
+  }
+  .mode-card.premium:active{
+    box-shadow:0 4px 12px rgba(0,0,0,0.3),0 0 20px rgba(212,175,55,0.12);
+  }
+  .premium-badge{
+    position:absolute;top:0;right:0;z-index:2;
+    background:linear-gradient(135deg,#d4af37,#f5d76e);
+    color:var(--dark);font-size:10px;font-weight:800;letter-spacing:.05em;
+    padding:6px 16px 5px;border-radius:0 var(--radius) 0 14px;
+    line-height:1;user-select:none;pointer-events:none;
+    box-shadow:0 2px 8px rgba(0,0,0,0.2);
+  }
+  .mode-card.premium:hover .premium-badge{
+    background:linear-gradient(135deg,#e6c35c,#f7e37e);
+  }
+  .mode-card.premium .mode-icon{background:linear-gradient(135deg,#d4af37,#f5d76e);color:var(--dark);position:relative;}
+  .mode-card.premium .mode-tag{background:rgba(212,175,55,0.18);color:#f5d76e;}
+
+  .footer{margin-top:42px;font-size:12px;color:var(--muted);font-weight:600}
+
+  @media(max-width:660px){
+    body{padding:18px}
+    .mode-grid{grid-template-columns:1fr;gap:16px}
+    h1.display{font-size:26px;padding:0 4px}
+    p.sub{font-size:13px;margin-bottom:28px}
+    .mode-card{padding:26px 20px 24px;gap:12px}
+    .mode-icon{width:64px;height:64px;font-size:28px}
+    .mode-title{font-size:18px}
+    .badge{font-size:10.5px;padding:6px 16px;margin-bottom:22px}
+  }
+  @media(max-width:380px){
+    h1.display{font-size:22px}
+    .mode-card{padding:20px 16px}
+    .mode-icon{width:54px;height:54px;font-size:24px}
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="badge">🧬 Medical AI System</div>
+  <h1 class="display">Choose Your Experience</h1>
+  <p class="sub">Select the mode that best fits your needs. Basic mode offers a streamlined interface, while Advanced mode provides the full-featured diagnostic dashboard.</p>
+
+  <div class="mode-grid">
+    <a href="medical_dashboard_v2(2).html" class="mode-card">
+      <div class="mode-icon">🩺</div>
+      <div class="mode-title">Basic Mode</div>
+      <p class="mode-desc">Streamlined interface with essential tools for quick patient lookups and AI-assisted diagnostics.</p>
+      <span class="mode-tag">✓ Recommended</span>
+    </a>
+    <a href="Premium.html" class="mode-card premium">
+      <div class="premium-badge">✨ PREMIUM</div>
+      <div class="mode-icon">🧠</div>
+      <div class="mode-title">Advanced Mode</div>
+      <p class="mode-desc">Full-featured dashboard with CSV uploads, batch predictions, analytics charts, and report printing.</p>
+      <span class="mode-tag">⚡ Full Features</span>
+    </a>
+  </div>
+
+  <div class="footer">Select a mode to launch the Medical AI System</div>
+</div>
+</body>
+</html>

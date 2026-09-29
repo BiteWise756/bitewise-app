@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PJ7MP3LK0C"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-PJ7MP3LK0C');
+  </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BiteWise Support Dashboard</title>
+<style>
+  :root {
+    --bg: #0f1420; --panel: #171e2e; --panel2: #1d2537; --line: #2a3450;
+    --text: #e6ebf5; --muted: #8b97b0; --accent: #4cc38a; --accent2: #3b82f6;
+    --warn: #f0a742; --danger: #ef5b5b; --purple: #a78bfa;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 14px; }
+  header { display: flex; align-items: center; justify-content: space-between; padding: 14px 22px; background: var(--panel); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 5; }
+  header h1 { font-size: 17px; font-weight: 600; }
+  header h1 span { color: var(--accent); }
+  .btn { background: var(--panel2); color: var(--text); border: 1px solid var(--line); border-radius: 8px; padding: 7px 14px; cursor: pointer; font-size: 13px; }
+  .btn:hover { border-color: var(--accent); }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #08120c; font-weight: 600; }
+  .btn.danger { border-color: var(--danger); color: var(--danger); }
+  .btn.warn { border-color: var(--warn); color: var(--warn); }
+  .btn:disabled { opacity: .45; cursor: not-allowed; }
+  main { display: flex; gap: 18px; padding: 18px 22px; align-items: flex-start; }
+  #listPanel { width: 380px; flex-shrink: 0; }
+  #detailPanel { flex: 1; }
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px; }
+  .panel h2 { font-size: 14px; font-weight: 600; margin-bottom: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+  .filters { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+  .chip { background: var(--panel2); border: 1px solid var(--line); color: var(--muted); border-radius: 20px; padding: 4px 12px; cursor: pointer; font-size: 12px; }
+  .chip.active { background: var(--accent); color: #08120c; border-color: var(--accent); }
+  #convList { display: flex; flex-direction: column; gap: 8px; max-height: calc(100vh - 190px); overflow-y: auto; }
+  .conv { background: var(--panel2); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; cursor: pointer; }
+  .conv:hover { border-color: var(--accent2); }
+  .conv .row1 { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+  .conv .subj { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .conv .meta { color: var(--muted); font-size: 12px; margin-top: 4px; }
+  .badge { font-size: 11px; padding: 2px 8px; border-radius: 12px; white-space: nowrap; }
+  .b-NEW { background: #24304d; color: #9db4ff; }
+  .b-NEEDS_HUMAN { background: #4d3a1e; color: #ffd28a; }
+  .b-HUMAN_HANDLED { background: #4d2630; color: #ff9c9c; }
+  .b-AI_REPLIED { background: #14402c; color: #7dd9a8; }
+  .b-RESOLVED { background: #232b3d; color: #93a3bd; }
+  .b-ERROR { background: #4d1e1e; color: #ff8a8a; }
+  .b-PROCESSING { background: #23314d; color: #8fb0ff; }
+  .b-PENDING_APPROVAL { background: #4d3a1e; color: #ffd28a; }
+  #detailHeader { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; flex-wrap: wrap; }
+  #detailHeader .info { font-size: 13px; color: var(--muted); margin-top: 6px; line-height: 1.6; }
+  .actions { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+  #messages { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; max-height: 46vh; overflow-y: auto; }
+  .msg { border-radius: 10px; padding: 10px 14px; max-width: 92%; }
+  .msg.in { background: var(--panel2); align-self: flex-start; border: 1px solid var(--line); }
+  .msg.out { background: #14304a; align-self: flex-end; border: 1px solid #23507a; }
+  .msg .head { display: flex; justify-content: space-between; gap: 12px; font-size: 11px; color: var(--muted); margin-bottom: 5px; }
+  .msg .body { white-space: pre-wrap; line-height: 1.55; }
+  .msg.ai-draft { border-style: dashed; border-color: var(--purple); }
+  .msg .draft-note { font-size: 11px; color: var(--purple); margin-top: 6px; }
+  #replyBox { margin-top: 14px; }
+  #replyText { width: 100%; min-height: 90px; background: var(--panel2); border: 1px solid var(--line); border-radius: 10px; color: var(--text); padding: 10px; font-size: 13px; font-family: inherit; resize: vertical; }
+  #replyText:focus { outline: none; border-color: var(--accent); }
+  #sendReplyRow { display: flex; justify-content: flex-end; gap: 8px; margin-top: 8px; }
+  .toast { position: fixed; bottom: 18px; right: 18px; background: var(--panel2); border: 1px solid var(--accent); color: var(--text); padding: 10px 16px; border-radius: 10px; opacity: 0; transition: opacity .25s; z-index: 20; font-size: 13px; }
+  .toast.show { opacity: 1; }
+  .empty { color: var(--muted); text-align: center; padding: 30px 10px; }
+  @media (max-width: 850px) { main { flex-direction: column; } #listPanel { width: 100%; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>BiteWise <span>Support</span></h1>
+  <div>
+    <button class="btn" id="btnPoll">Check inbox now</button>
+    <button class="btn" id="btnRefresh">Refresh</button>
+    <button class="btn danger" id="btnLogout">Sign out</button>
+  </div>
+</header>
+
+<main>
+  <div id="listPanel" class="panel">
+    <h2>Conversations</h2>
+    <div class="filters" id="filters"></div>
+    <div id="convList"></div>
+  </div>
+
+  <div id="detailPanel" class="panel">
+    <div id="detailHeader">
+      <div>
+        <h2 id="detailTitle">Select a conversation</h2>
+        <div class="info" id="detailInfo"></div>
+      </div>
+      <div class="actions" id="detailActions"></div>
+    </div>
+    <div id="messages"></div>
+    <div id="replyBox" style="display:none;">
+      <textarea id="replyText" placeholder="Write a reply to the customer..."></textarea>
+      <div id="sendReplyRow">
+        <button class="btn" id="btnCancelReply">Cancel</button>
+        <button class="btn primary" id="btnSendReply">Send reply</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function () {
+  const token = localStorage.getItem('bw_token') || '';
+  if (!token) { window.location.href = 'Sign.html'; return; }
+
+  const API = (window.location.protocol === 'http:' || window.location.protocol === 'https:')
+    ? window.location.origin
+    : 'https://bitewise-app-production-ca6b.up.railway.app';
+
+  const STATUSES = ['ALL', 'PENDING_APPROVAL', 'NEW', 'NEEDS_HUMAN', 'AI_REPLIED', 'HUMAN_HANDLED', 'RESOLVED', 'ERROR'];
+  let conversations = [];
+  let filter = 'ALL';
+  let currentThreadId = null;
+
+  const $ = (id) => document.getElementById(id);
+  const toast = (msg) => {
+    const t = $('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2600);
+  };
+
+  async function api(path, options = {}) {
+    const res = await fetch(API + path, {
+      ...options,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token,
+        ...(options.headers || {}),
+      },
+    });
+    if (res.status === 401 || res.status === 403) {
+      localStorage.removeItem('bw_token');
+      window.location.href = 'Sign.html';
+      throw new Error('Not authorized');
+    }
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.detail || ('HTTP ' + res.status));
+    return data;
+  }
+
+  async function loadList() {
+    try {
+      const res = await api('/support/conversations?limit=500');
+      conversations = res.data && res.data.conversations ? res.data.conversations : [];
+      renderList();
+      if (currentThreadId) { const still = conversations.find(c => c.threadId === currentThreadId); if (still) loadDetail(currentThreadId); }
+    } catch (e) { toast('Failed to load conversations'); }
+  }
+
+  function renderList() {
+    const box = $('convList');
+    const chips = $('filters');
+    chips.innerHTML = '';
+    STATUSES.forEach(s => {
+      const c = document.createElement('span');
+      c.className = 'chip' + (filter === s ? ' active' : '');
+      c.textContent = s;
+      c.onclick = () => { filter = s; renderList(); };
+      chips.appendChild(c);
+    });
+    const shown = filter === 'ALL' ? conversations : conversations.filter(c => (c.status || 'NEW') === filter);
+    box.innerHTML = '';
+    if (!shown.length) {
+      box.innerHTML = '<div class="empty">No conversations' + (filter === 'ALL' ? '' : ' in ' + filter) + '</div>';
+      return;
+    }
+    shown.forEach(c => {
+      const div = document.createElement('div');
+      div.className = 'conv';
+      const status = c.status || 'NEW';
+      const when = (c.lastActivityAt || c.updatedAt || '').toString();
+      div.innerHTML =
+        '<div class="row1"><span class="subj"></span><span class="badge b-' + status + '">' + status + '</span></div>' +
+        '<div class="meta"></div>';
+      div.querySelector('.subj').textContent = c.subject || '(no subject)';
+      div.querySelector('.meta').textContent =
+        (c.customerEmail || 'unknown') + ' · ' + (c.customerName || '—') + ' · ' + (when ? new Date(when).toLocaleString() : '');
+      div.onclick = () => { currentThreadId = c.threadId; loadDetail(c.threadId); };
+      box.appendChild(div);
+    });
+  }
+
+  function badgeFor(status) {
+    return '<span class="badge b-' + status + '">' + status + '</span>';
+  }
+
+  async function loadDetail(threadId) {
+    currentThreadId = threadId;
+    try {
+      const res = await api('/support/conversations/' + encodeURIComponent(threadId));
+      const c = res.data;
+      $('detailTitle').innerHTML = (c.subject || '(no subject)') + ' ' + badgeFor(c.status || 'NEW');
+      $('detailInfo').innerHTML =
+        '<div>From: <strong>' + (c.customerEmail || '?') + '</strong> · Name: ' + (c.customerName || '—') +
+        ' · UID: ' + (c.customerUid || '—') + '</div>' +
+        '<div>AI enabled: <strong>' + (c.aiEnabled ? 'yes' : 'no') + '</strong> · AI handled: ' +
+        (c.aiHandled ? 'yes' : 'no') + ' · Handler: ' + (c.handlerUid || '—') + '</div>';
+
+      const actions = $('detailActions');
+      actions.innerHTML = '';
+      const aiOn = !!c.aiEnabled;
+      const btnAi = document.createElement('button');
+      btnAi.className = 'btn' + (aiOn ? ' warn' : ' primary');
+      btnAi.textContent = aiOn ? 'Disable AI autopilot' : 'Enable AI autopilot';
+      btnAi.onclick = () => toggleAi(threadId, !aiOn);
+      actions.appendChild(btnAi);
+
+      const btnTake = document.createElement('button');
+      btnTake.className = 'btn';
+      btnTake.textContent = 'Take over';
+      btnTake.onclick = () => takeOver(threadId);
+      actions.appendChild(btnTake);
+
+      const btnResolve = document.createElement('button');
+      btnResolve.className = 'btn primary';
+      btnResolve.textContent = 'Mark resolved';
+      btnResolve.onclick = () => resolveConv(threadId);
+      actions.appendChild(btnResolve);
+
+      // Approval actions for PENDING_APPROVAL status
+      if ((c.status || 'NEW') === 'PENDING_APPROVAL') {
+        // Find the AI draft message
+        const draftMsg = (c.messages || []).find(m => m.pendingApproval && m.aiDraft);
+        if (draftMsg) {
+          // Approve button
+          const btnApprove = document.createElement('button');
+          btnApprove.className = 'btn primary';
+          btnApprove.textContent = 'Approve & Send';
+          btnApprove.onclick = () => approveAi(threadId, draftMsg.aiDraft, false);
+          actions.appendChild(btnApprove);
+
+          // Edit & Send button
+          const btnEdit = document.createElement('button');
+          btnEdit.className = 'btn';
+          btnEdit.textContent = 'Edit & Send';
+          btnEdit.onclick = () => editAndSend(threadId, draftMsg.aiDraft);
+          actions.appendChild(btnEdit);
+
+          // Reject button
+          const btnReject = document.createElement('button');
+          btnReject.className = 'btn danger';
+          btnReject.textContent = 'Reject';
+          btnReject.onclick = () => rejectAi(threadId);
+          actions.appendChild(btnReject);
+        }
+      }
+
+      const msgs = c.messages || [];
+      const box = $('messages');
+      box.innerHTML = '';
+      if (!msgs.length) box.innerHTML = '<div class="empty">No messages stored yet.</div>';
+      msgs.forEach(m => {
+        const div = document.createElement('div');
+        const isDraft = !!m.aiDraft;
+        const body = isDraft ? (m.aiDraft || '') : (m.body || '');
+        div.className = 'msg ' + (m.direction === 'out' ? 'out' : 'in') + (isDraft ? ' ai-draft' : '');
+        const kindLabel = m.kind === 'ai' ? 'AI' : (m.kind === 'human' ? 'HUMAN' : 'CUSTOMER');
+        div.innerHTML = '<div class="head"><span></span><span></span></div><div class="body"></div>';
+        div.querySelector('.head span:first-child').textContent = (m.direction === 'out' ? '→ ' : '← ') + kindLabel;
+        div.querySelector('.head span:last-child').textContent = m.receivedAt ? new Date(m.receivedAt).toLocaleString() : '';
+        div.querySelector('.body').textContent = body;
+        if (isDraft) {
+          const note = document.createElement('div');
+          note.className = 'draft-note';
+          note.textContent = 'AI draft (not sent) — needed human review';
+          div.appendChild(note);
+        }
+        box.appendChild(div);
+      });
+
+      $('replyBox').style.display = 'block';
+      $('btnSendReply').onclick = () => sendReply(threadId);
+      $('btnCancelReply').onclick = () => { $('replyText').value = ''; };
+    } catch (e) {
+      toast('Failed to load conversation');
+    }
+  }
+
+  async function apiPost(path, body) {
+    const res = await api(path, { method: 'POST', body: JSON.stringify(body || {}) });
+    return res;
+  }
+
+  async function toggleAi(threadId, enabled) {
+    try { await apiPost('/support/conversations/' + encodeURIComponent(threadId) + '/ai', { enabled }); toast('AI ' + (enabled ? 'enabled' : 'disabled')); }
+    catch (e) { toast('Request failed'); }
+    loadDetail(threadId); loadList();
+  }
+
+  async function takeOver(threadId) {
+    try { await apiPost('/support/conversations/' + encodeURIComponent(threadId) + '/take-over'); toast('Conversation taken over'); }
+    catch (e) { toast('Request failed'); }
+    loadDetail(threadId); loadList();
+  }
+
+  async function resolveConv(threadId) {
+    try { await apiPost('/support/conversations/' + encodeURIComponent(threadId) + '/resolve'); toast('Conversation resolved'); }
+    catch (e) { toast('Request failed'); }
+    loadDetail(threadId); loadList();
+  }
+
+  async function sendReply(threadId) {
+    const text = $('replyText').value.trim();
+    if (!text) { toast('Write a reply first'); return; }
+    try { await apiPost('/support/conversations/' + encodeURIComponent(threadId) + '/reply', { reply: text }); toast('Reply sent'); $('replyText').value = ''; }
+    catch (e) { toast('Could not send reply'); }
+    loadDetail(threadId); loadList();
+  }
+
+  async function approveAi(threadId, draftText, edited) {
+    if (!confirm('Approve and send this AI-generated reply to the customer?')) return;
+    try {
+      await apiPost('/support/conversations/' + encodeURIComponent(threadId) + '/approve-ai', { approve: true, edited_reply: draftText });
+      toast('AI reply approved and sent');
+    } catch (e) { toast('Approval failed: ' + e.message); }
+    loadDetail(threadId); loadList();
+  }
+
+  async function editAndSend(threadId, draftText) {
+    const edited = prompt('Edit the AI draft before sending:', draftText);
+    if (edited === null) return; // Cancelled
+    if (!edited.trim()) { toast('Reply cannot be empty'); return; }
+    if (!confirm('Send this edited reply to the customer?')) return;
+    try {
+      await apiPost('/support/conversations/' + encodeURIComponent(threadId) + '/approve-ai', { approve: true, edited_reply: edited.trim() });
+      toast('Edited reply sent');
+    } catch (e) { toast('Send failed: ' + e.message); }
+    loadDetail(threadId); loadList();
+  }
+
+  async function rejectAi(threadId) {
+    if (!confirm('Reject this AI draft? The conversation will be assigned to a human for manual handling.')) return;
+    try {
+      await apiPost('/support/conversations/' + encodeURIComponent(threadId) + '/approve-ai', { approve: false });
+      toast('AI draft rejected; conversation assigned to human');
+    } catch (e) { toast('Rejection failed: ' + e.message); }
+    loadDetail(threadId); loadList();
+  }
+
+  $('btnRefresh').onclick = () => { loadList(); if (currentThreadId) loadDetail(currentThreadId); };
+  $('btnPoll').onclick = async () => {
+    $('btnPoll').disabled = true;
+    try {
+      const res = await apiPost('/support/poll');
+      toast('Poll done: ' + (res.data.processed || 0) + ' message(s)');
+    } catch (e) { toast('Poll failed'); }
+    $('btnPoll').disabled = false;
+    loadList();
+  };
+  $('btnLogout').onclick = () => { localStorage.removeItem('bw_token'); window.location.href = 'Sign.html'; };
+
+  loadList();
+})();
+</script>
+</body>
+</html>

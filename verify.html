@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PJ7MP3LK0C"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-PJ7MP3LK0C');
+  </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Verify your email - BiteWise</title>
+<style>
+  :root{
+    --cream:#F6F2E9; --bg:#FBFAF5; --surface:#FFFFFF;
+    --ink-rgb:16,36,30; --text:#10241E; --dark:#10241E;
+    --sage:#A4B89A; --accent-text:#5B7054; --muted:#8A8F86; --err:#C0563F;
+  }
+  *{margin:0; padding:0; box-sizing:border-box;}
+  body{
+    font-family:'Manrope','Segoe UI',system-ui,-apple-system,sans-serif;
+    background:var(--bg); color:var(--text); min-height:100vh;
+    display:flex; align-items:center; justify-content:center; padding:24px;
+  }
+  .card{
+    background:var(--surface); border:1px solid rgba(var(--ink-rgb),0.1);
+    border-radius:24px; padding:40px 32px; max-width:400px; width:100%;
+    text-align:center; box-shadow:0 10px 30px rgba(var(--ink-rgb),0.06);
+  }
+  .icon{
+    width:68px; height:68px; border-radius:50%; margin:0 auto 18px;
+    display:flex; align-items:center; justify-content:center;
+    border:1.6px solid rgba(164,184,154,0.5); background:rgba(164,184,154,0.16);
+  }
+  .icon.pending{ border-color:rgba(164,184,154,0.5); background:rgba(164,184,154,0.16); }
+  .icon.ok{ border-color:rgba(94,138,104,0.5); background:rgba(94,138,104,0.14); }
+  .icon.err{ border-color:rgba(192,86,63,0.5); background:rgba(192,86,63,0.1); }
+  h1{font-size:21px; font-weight:800; letter-spacing:-0.3px;}
+  p{font-size:13.5px; color:#5D6259; line-height:1.6; margin-top:10px;}
+  .btn{
+    display:block; width:100%; border-radius:100px; padding:14px; margin-top:22px;
+    font-size:13.5px; font-weight:800; font-family:'Manrope'; cursor:pointer;
+    border:1.6px solid var(--dark); background:var(--dark); color:var(--bg);
+    transition:.15s;
+  }
+  .btn:hover{opacity:.9;}
+  .btn.secondary{background:transparent; color:var(--text); border-color:rgba(var(--ink-rgb),0.25);}
+  .btn:disabled{opacity:.55; cursor:default;}
+  .feedback{font-size:12.5px; font-weight:700; margin-top:14px; line-height:1.55; color:var(--muted);}
+  .feedback.ok{color:#4E7A58;}
+  .feedback.err{color:var(--err);}
+  .spinner{
+    width:30px; height:30px; margin:0 auto; border-radius:50%;
+    border:3px solid rgba(var(--ink-rgb),0.12); border-top-color:var(--sage);
+    animation:spin .8s linear infinite;
+  }
+  @keyframes spin{to{transform:rotate(360deg);}}
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="icon pending" id="icon">
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="none">
+      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="#5B7054" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M22 6l-10 7L2 6" stroke="#5B7054" stroke-width="2" stroke-linejoin="round"/>
+    </svg>
+  </div>
+  <h1 id="title">Check your inbox</h1>
+  <p id="msg">We sent a 6-digit verification code to your email address. Enter it in the app to verify your account.</p>
+  <div class="feedback" id="feedback" style="display:none;"></div>
+  <button class="btn" id="primaryBtn" onclick="window.location.href='/app/Sign.html';">Go to Sign In</button>
+</div>
+
+<script>
+  document.getElementById('primaryBtn').style.display = 'block';
+</script>
+</body>
+</html>
